@@ -11,8 +11,8 @@ app.get("/", (req, res) => {
   res.json({ info: "Node.js, Express, and Postgres API" });
 });
 
-const filmRoutes = require("./routes");
-app.use("/api/v1/films", filmRoutes);
+const userRoutes = require("./routes");
+app.use("/api/v1/users", userRoutes);
 
 app.listen(port, () => {
   console.log(`App is listening to port ${port}`);
