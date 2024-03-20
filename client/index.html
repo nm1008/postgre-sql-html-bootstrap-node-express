@@ -21,23 +21,25 @@
         <div class="col-md-12 col-12">
           <h1 class="text-center">Employee Database</h1>
         </div>
-        <div class="col-md-12 col-12">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-              </tr>
-            </thead>
-            <tbody id="table-body">
-              <!-- DATA -->
-            </tbody>
-          </table>
-        </div>
-        <div>
-          <form onsubmit="addEmployee(event)" id="form">
+        <div class="row justify-content-center ">
+          <div class="col-auto">
+            <table class="table">
+              <thead>
+                <tr class="text-center">
+                  <th scope="col">#</th>
+                  <th scope="col">First</th>
+                  <th scope="col">Last</th>
+                  <th scope="col">Handle</th>
+                </tr>
+              </thead>
+              <tbody id="table-body">
+                <!-- DATA -->
+              </tbody>
+            </table>
+          </div>
+          <div></div>
+
+          <form id="form">
             <div class="mb-3 col-md-6 mx-auto">
               <label for="first-name" class="form-label">First Name</label>
               <input type="text" class="form-control" id="first-name" />
@@ -46,9 +48,10 @@
               <label for="last-name" class="form-label">Last Name</label>
               <input type="text" class="form-control" id="last-name" />
             </div>
-            
-              <button type="submit" class="btn btn-primary col-md-4">Submit</button>
-            
+
+            <button type="submit" class="btn btn-primary col-md-4">
+              Submit
+            </button>
           </form>
         </div>
       </div>
