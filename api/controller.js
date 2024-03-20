@@ -9,7 +9,7 @@ const getAllEmployees = (req, res) => {
         res.status(500).json({ message: err.message });
         return;
       }
-      console.log(data);
+      // console.log(data);
       res.status(200).json(data.rows);
     });
   } catch (err) {
@@ -42,7 +42,7 @@ const getUserById = (req, res) => {
   try {
     const q = "SELECT * FROM employee_info WHERE user_id = $1";
     const id = parseInt(req.params.id);
-    console.log(id);
+    // console.log(id);
 
     pool.query(q, [id], (error, data) => {
       if (error) {
@@ -83,7 +83,7 @@ const deleteUserById = (req, res) => {
   try {
     const q = "DELETE FROM employee_info WHERE user_id = $1";
     const id = parseInt(req.params.id);
-    console.log(id);
+    // console.log(id);
 
     pool.query(q, [id], (error, data) => {
       if (error) {
