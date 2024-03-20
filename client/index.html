@@ -21,9 +21,10 @@
         <div class="col-md-12 col-12">
           <h1 class="text-center">Employee Database</h1>
         </div>
-        <div class="row justify-content-center ">
+        <div class="row justify-content-center">
           <div class="col-auto">
-            <table class="table">
+            <span id="spanUser"></span>
+            <table id="table">
               <thead>
                 <tr class="text-center">
                   <th scope="col">#</th>
@@ -53,6 +54,53 @@
               Submit
             </button>
           </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="staticBackdrop"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Edit User</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="form">
+              <div class="mb-3 col-md-6 mx-auto">
+                <label for="upd-first-name" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="upd-first-name" />
+              </div>
+              <div class="mb-3 col-md-6 mx-auto">
+                <label for="upd-last-name" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="upd-last-name" />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button id="edit" type="button" class="btn btn-primary">Submit</button>
+          </div>
         </div>
       </div>
     </div>
