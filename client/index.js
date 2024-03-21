@@ -22,7 +22,7 @@ $.ajax({
       userId = user.user_id;
       $("#table-body").append(`
         <tr>
-          <td>${user.user_id}</td>
+          <td class="fw-bold">${user.user_id}</td>
           <td>${user.first_name}</td>
           <td>${user.last_name}</td> 
           <td>
@@ -41,9 +41,9 @@ $.ajax({
 });
 
 //ADD USER
-$("#addEmployeeForm").on("submit", (e) => {
-  console.log('working add');
-  e.preventDefault();
+$("#add").click(() => {
+  console.log("test");
+
   const firstName = $("#first-name").val();
   const lastName = $("#last-name").val();
   const email = $("#email").val();
@@ -76,7 +76,7 @@ $("#addEmployeeForm").on("submit", (e) => {
 
 //UPDATE USER
 const updateUser = (userId) => {
-  console.log('working edit')
+  console.log("working edit");
   console.log(`this is user ${userId}`);
   editUserId = userId;
 
