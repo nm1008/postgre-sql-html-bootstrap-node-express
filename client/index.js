@@ -27,7 +27,7 @@ $.ajax({
           <td>${user.last_name}</td> 
           <td>
             <button type="button" class='btn btn-success text-white mx-2 fw-bold' data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" onclick="viewEmployee(${user.user_id})">View</button>
-            <button type="button" class='btn btn-warning text-white mx-2 fw-bold' data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="updateUser(${user.user_id})">Edit</button>
+            <button type="button" class='btn btn-warning text-white mx-2 fw-bold' data-bs-toggle="modal" data-bs-target="#editUserModal" onclick="updateUser(${user.user_id})">Edit</button>
             <button class='btn btn-danger text-white fw-bold' onclick="deleteUser(${user.user_id})">Delete</button>
           </td>
         </tr>
@@ -42,13 +42,13 @@ $.ajax({
 
 //ADD USER
 $("#add").click(() => {
-  // console.log("test");
-
   const firstName = $("#first-name").val();
   const lastName = $("#last-name").val();
   const email = $("#email").val();
   const address = $("#address").val();
   const phoneNumber = $("#phone-number").val();
+
+  //cleansing of strings
 
   if (
     firstName === "" ||
@@ -57,17 +57,19 @@ $("#add").click(() => {
     address === "" ||
     phoneNumber === ""
   ) {
-    alert("error");
+    alert("Please fill out the input fields");
     return $("#addEmployeeModal").modal("hide");
   }
 
   const user = {
     user_id: userId,
-    first_name: firstName.charAt(0).toUpperCase() + firstName.slice(1),
-    last_name: lastName.charAt(0).toUpperCase() + lastName.slice(1),
-    email: email,
-    address: address,
-    phone_number: phoneNumber,
+    first_name:
+      stringCleanser(firstName).charAt(0).toUpperCase() + firstName.slice(1),
+    last_name:
+      stringCleanser(lastName).charAt(0).toUpperCase() + lastName.slice(1),
+    email: stringCleanser(email),
+    address: stringCleanser(address),
+    phone_number: stringCleanser(phoneNumber),
   };
 
   $.ajax({
@@ -95,8 +97,6 @@ $("#add").click(() => {
 
 //UPDATE USER
 const updateUser = (userId) => {
-  // console.log("working edit");
-  // console.log(`this is user ${userId}`);
   editUserId = userId;
 
   $.ajax({
@@ -120,15 +120,28 @@ const updateUser = (userId) => {
     const updateAddress = $("#upd-address").val();
     const updatePhoneNumber = $("#upd-phone-number").val();
 
+    if (
+      updateFirstName === "" ||
+      updateLastName === "" ||
+      updateEmail === "" ||
+      updateAddress === "" ||
+      updatePhoneNumber === ""
+    ) {
+      alert("Please fill out the input fields");
+      return $("#editUserModal").modal("hide");
+    }
+
     const updateUser = {
       user_id: editUserId,
       first_name:
-        updateFirstName.charAt(0).toUpperCase() + updateFirstName.slice(1),
+        stringCleanser(updateFirstName).charAt(0).toUpperCase() +
+        updateFirstName.slice(1),
       last_name:
-        updateLastName.charAt(0).toUpperCase() + updateLastName.slice(1),
-      email: updateEmail,
-      address: updateAddress,
-      phone_number: updatePhoneNumber,
+        stringCleanser(updateLastName).charAt(0).toUpperCase() +
+        updateLastName.slice(1),
+      email: stringCleanser(updateEmail),
+      address: stringCleanser(updateAddress),
+      phone_number: stringCleanser(updatePhoneNumber),
     };
 
     $.ajax({
@@ -148,7 +161,7 @@ const updateUser = (userId) => {
           }).then(() => {
             location.reload();
           });
-          $("#staticBackdrop").modal("hide");
+          $("#editUserModal").modal("hide");
         }
       },
     });
@@ -196,10 +209,7 @@ const deleteUser = (userId) => {
 const getUserById = (userId) => {};
 
 //VIEW employee
-
 const viewEmployee = (userId) => {
-  // console.log(userId);
-
   $.ajax({
     type: "GET",
     url: `${baseURL}${userId}`,
@@ -230,6 +240,15 @@ const viewEmployee = (userId) => {
   });
 };
 
+const stringCleanser = (string) => {
+  return string.replace(/([^a-z0-9 ._-]+)/gi, "");
+};
+
+$('#search-user').click((e) => {
+  e.preventDefault()
+  const input = $('#search-user-input').val()
+  console.log(input)
+})
 //random code langsss
 // function ajaxPost(url, data, callback = null, successMessage = null) {
 //   $.post(url, data, function (response) {
