@@ -26,9 +26,9 @@ $.ajax({
           <td>${user.first_name}</td>
           <td>${user.last_name}</td> 
           <td>
-            <button type="button" class='btn btn-success text-white mx-3' data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" onclick="viewEmployee(${user.user_id})">View</button>
-            <button type="button" class='btn btn-warning text-white mx-3' data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="updateUser(${user.user_id})">Edit</button>
-            <button class='btn btn-danger text-white' onclick="deleteUser(${user.user_id})">Delete</button>
+            <button type="button" class='btn btn-success text-white mx-2 fw-bold' data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" onclick="viewEmployee(${user.user_id})">View</button>
+            <button type="button" class='btn btn-warning text-white mx-2 fw-bold' data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="updateUser(${user.user_id})">Edit</button>
+            <button class='btn btn-danger text-white fw-bold' onclick="deleteUser(${user.user_id})">Delete</button>
           </td>
         </tr>
       `);
@@ -41,8 +41,8 @@ $.ajax({
 });
 
 //ADD USER
-$("#form").on("submit", (e) => {
-  console.log();
+$("#addEmployeeForm").on("submit", (e) => {
+  console.log('working add');
   e.preventDefault();
   const firstName = $("#first-name").val();
   const lastName = $("#last-name").val();
@@ -76,7 +76,7 @@ $("#form").on("submit", (e) => {
 
 //UPDATE USER
 const updateUser = (userId) => {
-  console.log('working')
+  console.log('working edit')
   console.log(`this is user ${userId}`);
   editUserId = userId;
 
