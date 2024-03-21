@@ -26,6 +26,7 @@ $.ajax({
           <td>${user.first_name}</td>
           <td>${user.last_name}</td> 
           <td>
+            <button type="button" class='btn btn-success text-white mx-3' data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" onclick="viewEmployee(${user.user_id})">View</button>
             <button type="button" class='btn btn-warning text-white mx-3' data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="updateUser(${user.user_id})">Edit</button>
             <button class='btn btn-danger text-white' onclick="deleteUser(${user.user_id})">Delete</button>
           </td>
@@ -41,14 +42,21 @@ $.ajax({
 
 //ADD USER
 $("#form").on("submit", (e) => {
+  console.log();
   e.preventDefault();
   const firstName = $("#first-name").val();
   const lastName = $("#last-name").val();
+  const email = $("#email").val();
+  const address = $("#address").val();
+  const phoneNumber = $("#phone-number").val();
 
   const user = {
     user_id: userId,
     first_name: firstName.charAt(0).toUpperCase() + firstName.slice(1),
     last_name: lastName.charAt(0).toUpperCase() + lastName.slice(1),
+    email: email,
+    address: address,
+    phone_number: phoneNumber,
   };
 
   $.ajax({
@@ -68,6 +76,7 @@ $("#form").on("submit", (e) => {
 
 //UPDATE USER
 const updateUser = (userId) => {
+  console.log('working')
   console.log(`this is user ${userId}`);
   editUserId = userId;
 
@@ -78,6 +87,9 @@ const updateUser = (userId) => {
       res.map((user) => {
         $("#upd-first-name").val(`${user.first_name}`);
         $("#upd-last-name").val(user.last_name);
+        $("#upd-email").val(user.email);
+        $("#upd-address").val(user.address);
+        $("#upd-phone-number").val(user.phone_number);
       });
     },
   });
@@ -85,11 +97,19 @@ const updateUser = (userId) => {
   $("#edit").click(() => {
     const updateFirstName = $("#upd-first-name").val();
     const updateLastName = $("#upd-last-name").val();
+    const updateEmail = $("#upd-email").val();
+    const updateAddress = $("#upd-address").val();
+    const updatePhoneNumber = $("#upd-phone-number").val();
 
     const updateUser = {
       user_id: editUserId,
-      first_name: updateFirstName.charAt(0).toUpperCase() + updateFirstName.slice(1),
-      last_name: updateLastName.charAt(0).toUpperCase() + updateLastName.slice(1),
+      first_name:
+        updateFirstName.charAt(0).toUpperCase() + updateFirstName.slice(1),
+      last_name:
+        updateLastName.charAt(0).toUpperCase() + updateLastName.slice(1),
+      email: updateEmail,
+      address: updateAddress,
+      phone_number: updatePhoneNumber,
     };
 
     $.ajax({
@@ -126,6 +146,45 @@ const deleteUser = (userId) => {
   location.reload();
 };
 
+// GET USER BY ID
+const getUserById = (userId) => {};
+
+//VIEW employee
+
+const viewEmployee = (userId) => {
+  console.log(userId);
+
+  $.ajax({
+    type: "GET",
+    url: `${baseURL}${userId}`,
+    success: (res) => {
+      res.map((user) => {
+        $("#view-employee").empty();
+        $("#view-employee").append(`
+        <div class="row text-center align-items-center ">
+          <div class="col-md-12">
+            <h3>${user.first_name} ${user.last_name}</h3>
+            <h6>Employee# ${user.user_id}</h6>
+          </div>
+        </div>
+        <div class="row ms-3 my-5">
+          <div class="d-flex gap-2">
+            <b>Email: </b><span>${user.email}</span>
+          </div>    
+          <div class="d-flex gap-2">
+              <b>Address: </b><span>${user.address}</span>
+          </div>
+          <div class="d-flex gap-2">
+              <b>Phone Number: </b><span>${user.phone_number}</span>
+          </div
+        </div>
+       `);
+      });
+    },
+  });
+};
+
+//random code langsss
 // function ajaxPost(url, data, callback = null, successMessage = null) {
 //   $.post(url, data, function (response) {
 //    if (!response.success) {
