@@ -11,7 +11,7 @@ $.ajax({
     $("#table-body").empty();
     if (res.length === 0) {
       userId = 1;
-      console.log(userId);
+      // console.log(userId);
       $("#table").remove();
       $("#spanUser").html(`
         <h1>No users</h1>
@@ -42,13 +42,24 @@ $.ajax({
 
 //ADD USER
 $("#add").click(() => {
-  console.log("test");
+  // console.log("test");
 
   const firstName = $("#first-name").val();
   const lastName = $("#last-name").val();
   const email = $("#email").val();
   const address = $("#address").val();
   const phoneNumber = $("#phone-number").val();
+
+  if (
+    firstName === "" ||
+    lastName === "" ||
+    email === "" ||
+    address === "" ||
+    phoneNumber === ""
+  ) {
+    alert("error");
+    return $("#addEmployeeModal").modal("hide");
+  }
 
   const user = {
     user_id: userId,
@@ -68,16 +79,24 @@ $("#add").click(() => {
     data: JSON.stringify(user),
     dataType: "json",
     success: (res) => {
-      console.log(res);
+      if (res) {
+        Swal.fire({
+          title: "Good job!",
+          text: "User has been updated",
+          icon: "success",
+        }).then(() => {
+          location.reload();
+        });
+        $("#addEmployeeModal").modal("hide");
+      }
     },
   });
-  location.reload();
 });
 
 //UPDATE USER
 const updateUser = (userId) => {
-  console.log("working edit");
-  console.log(`this is user ${userId}`);
+  // console.log("working edit");
+  // console.log(`this is user ${userId}`);
   editUserId = userId;
 
   $.ajax({
@@ -121,8 +140,16 @@ const updateUser = (userId) => {
       data: JSON.stringify(updateUser),
       dataType: "json",
       success: (res) => {
-        console.log(res);
-        location.reload();
+        if (res) {
+          Swal.fire({
+            title: "Good job!",
+            text: "User has been updated",
+            icon: "success",
+          }).then(() => {
+            location.reload();
+          });
+          $("#staticBackdrop").modal("hide");
+        }
       },
     });
   });
@@ -130,20 +157,39 @@ const updateUser = (userId) => {
 
 //DELETE USER
 const deleteUser = (userId) => {
-  $.ajax({
-    type: "DELETE",
-    url: `${baseURL}${userId}`,
-    headers: {
-      "Content-Type": "application/json",
-    },
-    success: (res) => {
-      console.log(res);
-    },
-    error: (xhr, status, error) => {
-      console.error("Error deleting user:", error);
-    },
+  Swal.fire({
+    title: "Do you want to delete this user?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $.ajax({
+        type: "DELETE",
+        url: `${baseURL}${userId}`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        success: (res) => {
+          if (res) {
+          }
+        },
+        error: (xhr, status, error) => {
+          console.error("Error deleting user:", error);
+        },
+      });
+
+      Swal.fire({
+        title: "Deleted!",
+        text: "This user has been deleted",
+        icon: "success",
+      }).then(() => {
+        location.reload();
+      });
+    }
   });
-  location.reload();
 };
 
 // GET USER BY ID
@@ -152,7 +198,7 @@ const getUserById = (userId) => {};
 //VIEW employee
 
 const viewEmployee = (userId) => {
-  console.log(userId);
+  // console.log(userId);
 
   $.ajax({
     type: "GET",

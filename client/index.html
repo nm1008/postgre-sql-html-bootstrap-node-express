@@ -12,12 +12,18 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    />
 
     <!-- JQUERY -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-    <!-- Option 1: Include in HTML -->
     <title>Employee Database</title>
   </head>
   <body>
@@ -26,8 +32,18 @@
         <div class="col-md-12">
           <h1 class="text-center my-5">Employee Database</h1>
         </div>
-        <div>
-          <button class="btn btn-success text-white fw-bold" data-bs-toggle="modal" data-bs-target="#addEmployeeModal">+ Add Employee</button>
+        <div class="d-flex justify-content-between align-content-center">
+          <button
+            class="btn btn-success text-white fw-bold"
+            data-bs-toggle="modal"
+            data-bs-target="#addEmployeeModal"
+          >
+            + Add Employee
+          </button>
+
+          <div>
+            <input type="text" class="ps-2" placeholder="Input Name" />
+          </div>
         </div>
         <span id="spanUser"></span>
         <table class="table">
@@ -71,26 +87,43 @@
           <div class="modal-body">
             <form id="form">
               <div class="mb-3 col-md-6 mx-auto">
-                <label for="first-name" class="form-label"
-                  >First Name</label
-                >
-                <input type="text" class="form-control" id="first-name" />
+                <label for="first-name" class="form-label">First Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="first-name"
+                  required
+                />
               </div>
               <div class="mb-3 col-md-6 mx-auto">
                 <label for="last-name" class="form-label">Last Name</label>
-                <input type="text" class="form-control" id="last-name" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="last-name"
+                  required
+                />
               </div>
               <div class="mb-3 col-md-6 mx-auto">
                 <label for="email" class="form-label">Email Address</label>
-                <input type="email" class="form-control" id="email" />
+                <input type="email" class="form-control" id="email" required />
               </div>
               <div class="mb-3 col-md-6 mx-auto">
                 <label for="address" class="form-label">Address</label>
-                <input type="text" class="form-control" id="address" />
+                <input type="text" class="form-control" id="address" required />
               </div>
               <div class="mb-3 col-md-6 mx-auto">
-                <label for="phone-number" class="form-label">Phone Number</label>
-                <input type="number" class="form-control" id="phone-number" />
+                <label for="phone-number" class="form-label"
+                  >Phone Number</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="phone-number"
+                  placeholder="+63"
+                  value="+63"
+                  required
+                />
               </div>
             </form>
           </div>
@@ -110,7 +143,6 @@
       </div>
     </div>
 
-      
     <!-- EDIT Modal -->
     <div
       class="modal fade"
@@ -153,8 +185,14 @@
                 <input type="text" class="form-control" id="upd-address" />
               </div>
               <div class="mb-3 col-md-6 mx-auto">
-                <label for="upd-phone-number" class="form-label">Phone Number</label>
-                <input type="number" class="form-control" id="upd-phone-number" />
+                <label for="upd-phone-number" class="form-label"
+                  >Phone Number</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="upd-phone-number"
+                />
               </div>
             </form>
           </div>
