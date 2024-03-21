@@ -21,11 +21,11 @@ const getAllEmployees = (req, res) => {
 const addEmployeeUser = (req, res) => {
   try {
     const q =
-      'INSERT INTO employee_info ("user_id", "first_name", "last_name") VALUES ($1, $2, $3)';
+      'INSERT INTO employee_info ("user_id", "first_name", "last_name", "email", "address", "phone_number") VALUES ($1, $2, $3, $4, $5, $6)';
 
-    const { user_id, first_name, last_name } = req.body;
+      const { user_id, first_name, last_name, email, address, phone_number } = req.body;
 
-    pool.query(q, [user_id, first_name, last_name], (err, data) => {
+    pool.query(q, [user_id, first_name, last_name, email, address, phone_number], (err, data) => {
       if (err) {
         console.error("Error executing query:", err);
         return res.sendStatus(500).json({ error: "Internal server error" });
