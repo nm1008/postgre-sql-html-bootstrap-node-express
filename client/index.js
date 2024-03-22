@@ -3,8 +3,9 @@ const baseURL = "http://localhost:3000/api/v1/users/";
 let userId;
 let editUserId;
 let viewAllBtn = false;
-var input = document.querySelector("#phone");
+const  input = document.querySelector("#phone");
 var updateInput = document.querySelector("#upd-phone-number");
+
 
 // INTL TEL INPUT
 var iti = window.intlTelInput(input, {
@@ -13,11 +14,16 @@ var iti = window.intlTelInput(input, {
     "https://cdn.jsdelivr.net/npm/intl-tel-input@20.0.5/build/js/utils.js",
 });
 
+
+
 var updateIti = window.intlTelInput(updateInput, {
   separateDialCode: true,
   utilsScript:
     "https://cdn.jsdelivr.net/npm/intl-tel-input@20.0.5/build/js/utils.js",
 });
+
+updateIti.setCountry('ph')
+
 
 //RENDER PAGE
 $.ajax({
@@ -126,7 +132,7 @@ const updateUser = (userId) => {
         $("#upd-last-name").val(user.last_name);
         $("#upd-email").val(user.email);
         $("#upd-address").val(user.address);
-        $("#upd-phone-number").val(user.phone_number);
+        $("#upd-phone-number").val("PH");
       });
     },
   });
