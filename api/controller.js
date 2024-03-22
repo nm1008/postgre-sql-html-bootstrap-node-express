@@ -21,7 +21,7 @@ const getAllEmployees = (req, res) => {
 const getUserByName = (req, res) => {
   try {
     const q =
-      "SELECT * FROM employee_info WHERE first_name = $1 AND last_name = $2;";
+      "SELECT * FROM employee_info WHERE first_name = $1 OR last_name = $2 ORDER BY user_id;";
     const { first_name, last_name } = req.body;
 
     pool.query(q, [first_name, last_name], (err, data) => {

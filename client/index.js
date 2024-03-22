@@ -2,7 +2,7 @@ const baseURL = "http://localhost:3000/api/v1/users/";
 
 let userId;
 let editUserId;
-let countryCode;
+let viewAllBtn = false;
 var input = document.querySelector("#phone");
 
 // INTL TEL INPUT
@@ -41,6 +41,7 @@ $.ajax({
         </tr>
       `);
       userId++;
+      $("#viewAll").hide();
     });
   },
   error: (xhr, status, error) => {
@@ -255,7 +256,7 @@ $("#search").click(() => {
   const searchFirstName = $("#search-first-name").val();
   const searchLastName = $("#search-last-name").val();
 
-  if (searchFirstName === "" || searchLastName === "") {
+  if (searchFirstName.length === 2 || searchLastName.length === 2) {
     alert("Please fill out the input fields");
     return $("#searchEmployeeModal").modal("hide");
   }
@@ -277,7 +278,7 @@ $("#search").click(() => {
     },
     data: JSON.stringify(searchUser),
     success: (res) => {
-      console.log(res);
+      // console.log(res);
       $("#table-body").empty();
       res.forEach((user) => {
         $("#table-body").append(`
@@ -293,10 +294,12 @@ $("#search").click(() => {
           </tr>
         `);
       });
-        $('#search-first-name').val("")
-        $('#search-last-name').val("")
-      $("#searchEmployeeModal").modal("hide"); 
 
+      $("#search-first-name").val("");
+      $("#search-last-name").val("");
+      $("#searchEmployeeModal").modal("hide");
+
+      $("#viewAll").show();
     },
   });
 });
@@ -310,6 +313,13 @@ $("#search-user").click((e) => {
   const input = $("#search-user-input").val();
   console.log(input);
 });
+
+//#viewAll Button
+$("#viewAll").click(() => {
+  location.reload();
+  $("#viewAll").hide();
+});
+
 //random code langsss
 // function ajaxPost(url, data, callback = null, successMessage = null) {
 //   $.post(url, data, function (response) {
