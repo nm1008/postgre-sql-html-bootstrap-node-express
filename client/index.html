@@ -24,6 +24,10 @@
     <!-- JQUERY -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+    <!-- INTL TEL INPUT -->
+    <link rel="stylesheet" href="./build/css/demo.css" />
+    <link rel="stylesheet" href="./build/css/intlTelInput.css" />
+
     <title>Employee Database</title>
   </head>
   <body>
@@ -53,8 +57,8 @@
             </form>
           </div>
         </div>
-        <span id="spanUser"></span>
-        <table class="table">
+       
+        <table id="table" class="table w-75 mx-auto">
           <thead class="text-center">
             <tr>
               <th>#</th>
@@ -68,10 +72,10 @@
           </tbody>
         </table>
       </div>
+      <span id="spanUser"></span>
     </div>
 
     <!-- ADD EMPLOYEE -->
-
     <div
       class="modal fade"
       id="addEmployeeModal"
@@ -120,16 +124,16 @@
                 <label for="address" class="form-label">Address</label>
                 <input type="text" class="form-control" id="address" required />
               </div>
-              <div class="mb-3 col-md-6 mx-auto">
-                <label for="phone-number" class="form-label"
-                  >Phone Number</label
-                >
+
+              <div class="mb-3 col-md-6 mx-auto intl-tel">
+                <label for="address" class="form-label">Phone Number</label>
                 <input
-                  type="number"
+                  type="tel"
                   class="form-control"
-                  id="phone-number"
-                  placeholder="+63"
-                  required
+                  id="phone"
+                  placeholder="9771234567"
+                  minlength=10
+                  maxlength=10
                 />
               </div>
             </form>
@@ -255,6 +259,8 @@
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
+
+    <script src="./build/js/intlTelInput.js"></script>
 
     <script src="index.js"></script>
   </body>

@@ -2,6 +2,13 @@ const baseURL = "http://localhost:3000/api/v1/users/";
 
 let userId;
 let editUserId;
+let countryCode;
+var input = document.querySelector("#phone");
+
+// INTL TEL INPUT
+var iti = window.intlTelInput(input, {
+  separateDialCode: true,
+});
 
 //RENDER PAGE
 $.ajax({
@@ -12,14 +19,15 @@ $.ajax({
     if (res.length === 0) {
       userId = 1;
       // console.log(userId);
-      $("#table").remove();
+
       $("#spanUser").html(`
-        <h1>No users</h1>
+        <h1 class="text-center my-5">No users</h1>
       `);
     }
 
     res.forEach((user) => {
       userId = user.user_id;
+
       $("#table-body").append(`
         <tr>
           <td class="fw-bold">${user.user_id}</td>
@@ -46,7 +54,9 @@ $("#add").click(() => {
   const lastName = $("#last-name").val();
   const email = $("#email").val();
   const address = $("#address").val();
-  const phoneNumber = $("#phone-number").val();
+  const phoneNumber = `${iti.getSelectedCountryData().dialCode}${$(
+    "#phone"
+  ).val()}`;
 
   //cleansing of strings
 
@@ -231,7 +241,7 @@ const viewEmployee = (userId) => {
               <b>Address: </b><span>${user.address}</span>
           </div>
           <div class="d-flex gap-2">
-              <b>Phone Number: </b><span>${user.phone_number}</span>
+              <b>Phone Number: </b><span>+${user.phone_number}</span>
           </div
         </div>
        `);
@@ -244,11 +254,11 @@ const stringCleanser = (string) => {
   return string.replace(/([^a-z0-9 ._-]+)/gi, "");
 };
 
-$('#search-user').click((e) => {
-  e.preventDefault()
-  const input = $('#search-user-input').val()
-  console.log(input)
-})
+$("#search-user").click((e) => {
+  e.preventDefault();
+  const input = $("#search-user-input").val();
+  console.log(input);
+});
 //random code langsss
 // function ajaxPost(url, data, callback = null, successMessage = null) {
 //   $.post(url, data, function (response) {
