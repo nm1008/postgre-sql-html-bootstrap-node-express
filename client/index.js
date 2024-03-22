@@ -250,6 +250,57 @@ const viewEmployee = (userId) => {
   });
 };
 
+//get user by name
+$("#search").click(() => {
+  const searchFirstName = $("#search-first-name").val();
+  const searchLastName = $("#search-last-name").val();
+
+  if (searchFirstName === "" || searchLastName === "") {
+    alert("Please fill out the input fields");
+    return $("#searchEmployeeModal").modal("hide");
+  }
+
+  const searchUser = {
+    first_name:
+      stringCleanser(searchFirstName).charAt(0).toUpperCase() +
+      searchFirstName.slice(1),
+    last_name:
+      stringCleanser(searchLastName).charAt(0).toUpperCase() +
+      searchLastName.slice(1),
+  };
+
+  $.ajax({
+    type: "POST",
+    url: `${baseURL}search`,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: JSON.stringify(searchUser),
+    success: (res) => {
+      console.log(res);
+      $("#table-body").empty();
+      res.forEach((user) => {
+        $("#table-body").append(`
+          <tr>
+          <td class="fw-bold">${user.user_id}</td>
+          <td>${user.first_name}</td>
+          <td>${user.last_name}</td> 
+          <td>
+            <button type="button" class='btn btn-success text-white mx-2 fw-bold' data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" onclick="viewEmployee(${user.user_id})">View</button>
+            <button type="button" class='btn btn-warning text-white mx-2 fw-bold' data-bs-toggle="modal" data-bs-target="#editUserModal" onclick="updateUser(${user.user_id})">Edit</button>
+            <button class='btn btn-danger text-white fw-bold' onclick="deleteUser(${user.user_id})">Delete</button>
+          </td>
+          </tr>
+        `);
+      });
+        $('#search-first-name').val("")
+        $('#search-last-name').val("")
+      $("#searchEmployeeModal").modal("hide"); 
+
+    },
+  });
+});
+
 const stringCleanser = (string) => {
   return string.replace(/([^a-z0-9 ._-]+)/gi, "");
 };

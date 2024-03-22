@@ -27,9 +27,9 @@ const getUserByName = (req, res) => {
     pool.query(q, [first_name, last_name], (err, data) => {
       if (err) {
         console.error("Error executing query:", err);
-        return res.status(500).json({ error: "Internal server error" }); // Changed from res.sendStatus(500) to res.status(500).json()
+        return res.status(500).json({ error: "Internal server error" });
       }
-      res.status(200).json(data.rows); // Changed from res.sendStatus(200) to res.status(200).json()
+      res.status(200).json(data.rows);
       console.log(data);
     });
   } catch (err) {

@@ -45,19 +45,15 @@
             + Add Employee
           </button>
 
-          <div class="d-flex align-items-center h-auto">
-            <form action="">
-              <input
-                type="text"
-                class="ps-2"
-                placeholder="Input Name"
-                id="search-user-input"
-              />
-              <button class="btn btn-primary" id="search-user">Search</button>
-            </form>
-          </div>
+          <button
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#searchEmployeeModal"
+          >
+            Search
+          </button>
         </div>
-       
+
         <table id="table" class="table w-75 mx-auto">
           <thead class="text-center">
             <tr>
@@ -132,8 +128,8 @@
                   class="form-control"
                   id="phone"
                   placeholder="9771234567"
-                  minlength=10
-                  maxlength=10
+                  minlength="10"
+                  maxlength="10"
                 />
               </div>
             </form>
@@ -249,6 +245,69 @@
           </div>
           <div class="modal-body" id="view-employee">
             <!-- EMPLOYEE DATA -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEARCH Modal -->
+    <div
+      class="modal fade"
+      id="searchEmployeeModal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticSearchEmployee"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticSearchEmployee">Search User</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="form">
+              <div class="mb-3 col-md-6 mx-auto">
+                <label for="search-first-name" class="form-label"
+                  >First Name</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="search-first-name"
+                  required
+                />
+              </div>
+              <div class="mb-3 col-md-6 mx-auto">
+                <label for="search-last-name" class="form-label"
+                  >Last Name</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="search-last-name"
+                  required
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button id="search" type="button" class="btn btn-primary">
+              Submit
+            </button>
           </div>
         </div>
       </div>
