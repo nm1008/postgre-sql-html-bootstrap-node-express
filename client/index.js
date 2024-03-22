@@ -4,10 +4,19 @@ let userId;
 let editUserId;
 let viewAllBtn = false;
 var input = document.querySelector("#phone");
+var updateInput = document.querySelector("#upd-phone-number");
 
 // INTL TEL INPUT
 var iti = window.intlTelInput(input, {
   separateDialCode: true,
+  utilsScript:
+    "https://cdn.jsdelivr.net/npm/intl-tel-input@20.0.5/build/js/utils.js",
+});
+
+var updateIti = window.intlTelInput(updateInput, {
+  separateDialCode: true,
+  utilsScript:
+    "https://cdn.jsdelivr.net/npm/intl-tel-input@20.0.5/build/js/utils.js",
 });
 
 //RENDER PAGE
@@ -19,7 +28,7 @@ $.ajax({
     if (res.length === 0) {
       userId = 1;
       // console.log(userId);
-
+      $("#viewAll").hide();
       $("#spanUser").html(`
         <h1 class="text-center my-5">No users</h1>
       `);
@@ -58,8 +67,6 @@ $("#add").click(() => {
   const phoneNumber = `${iti.getSelectedCountryData().dialCode}${$(
     "#phone"
   ).val()}`;
-
-  //cleansing of strings
 
   if (
     firstName === "" ||
@@ -256,7 +263,7 @@ $("#search").click(() => {
   const searchFirstName = $("#search-first-name").val();
   const searchLastName = $("#search-last-name").val();
 
-  if (searchFirstName.length === 2 || searchLastName.length === 2) {
+  if (searchFirstName.length <= 2 || searchLastName.length <= 2) {
     alert("Please fill out the input fields");
     return $("#searchEmployeeModal").modal("hide");
   }
@@ -304,15 +311,10 @@ $("#search").click(() => {
   });
 });
 
+//DUUUHH??
 const stringCleanser = (string) => {
   return string.replace(/([^a-z0-9 ._-]+)/gi, "");
 };
-
-$("#search-user").click((e) => {
-  e.preventDefault();
-  const input = $("#search-user-input").val();
-  console.log(input);
-});
 
 //#viewAll Button
 $("#viewAll").click(() => {

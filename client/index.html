@@ -13,6 +13,7 @@
       crossorigin="anonymous"
     />
 
+    <!-- SWEET ALERT -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Bootstrap Icons -->
@@ -121,20 +122,17 @@
                 <input type="email" class="form-control" id="email" required />
               </div>
               <div class="mb-3 col-md-6 mx-auto">
-                <label for="address" class="form-label">Address</label>
-                <input type="text" class="form-control" id="address" required />
+                <label for="address" class="form-label">Country</label>
+                <select
+                  class="selectpicker countrypicker"
+                  id="address"
+                  required
+                ></select>
               </div>
 
               <div class="mb-3 col-md-6 mx-auto intl-tel">
                 <label for="address" class="form-label">Phone Number</label>
-                <input
-                  type="tel"
-                  class="form-control"
-                  id="phone"
-                  placeholder="9771234567"
-                  minlength="10"
-                  maxlength="10"
-                />
+                <input type="tel" class="form-control" id="phone" />
               </div>
             </form>
           </div>
@@ -192,10 +190,14 @@
                 <input type="email" class="form-control" id="upd-email" />
               </div>
               <div class="mb-3 col-md-6 mx-auto">
-                <label for="upd-address" class="form-label">Address</label>
-                <input type="text" class="form-control" id="upd-address" />
+                <label for="upd-address" class="form-label">Country</label>
+                <select
+                  class="selectpicker countrypicker"
+                  id="upd-address"
+                  required
+                ></select>
               </div>
-              <div class="mb-3 col-md-6 mx-auto">
+              <!-- <div class="mb-3 col-md-6 mx-auto">
                 <label for="upd-phone-number" class="form-label"
                   >Phone Number</label
                 >
@@ -203,6 +205,18 @@
                   type="number"
                   class="form-control"
                   id="upd-phone-number"
+                />
+              </div> -->
+              <!-- TEST -->
+              <div class="mb-3 col-md-6 mx-auto intl-tel">
+                <label for="address" class="form-label">Phone Number</label>
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="upd-phone-number"
+                  placeholder="9771234567"
+                  minlength="10"
+                  maxlength="10"
                 />
               </div>
             </form>
@@ -322,6 +336,10 @@
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
+
+    <script src="
+    https://cdn.jsdelivr.net/npm/bootstrap-select-country@4.2.0/dist/js/bootstrap-select-country.min.js
+    "></script>
 
     <script src="./build/js/intlTelInput.js"></script>
 
