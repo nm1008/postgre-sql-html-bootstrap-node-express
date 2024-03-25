@@ -1,4 +1,6 @@
 const pool = require("./db");
+const bcrypt = require("bcrypt");
+const salt = 10;
 
 // get all users
 const getAllEmployees = (req, res) => {
@@ -128,7 +130,46 @@ const deleteUserById = (req, res) => {
   }
 };
 
+//// LOGIN - REGISTER ////
+
+const loginUser = (req, res) => {
+  const q = `SELECT * FROM user_accounts WHERE username = $1`;
+
+  const { username, password } = req.body;
+
+  pool.query(q, [username], (err, data) => {
+    if (err) {
+      throw err;
+    }
+    res.status(200).json(data.rows[0].password);
+    const hashedPassword = data.rows[0].password;
+    bcrypt.compare(password, hashedPassword, (err, result) => {
+      console.log(result);
+    });
+  });
+};
+
+const registerUser = async (req, res) => {
+  try {
+    const q = `INSERT INTO user_accounts (email, username, password, is_admin, date_joined) 
+    VALUES ($1, $2, $3, $4, $5);`;
+
+    const { email, username, password, is_admin, date_joined } = req.body;
+
+    const newPassword = await bcrypt.hash(password, salt);
+
+    await pool.query(q, [email, username, newPassword, is_admin, date_joined]);
+
+    res.status(200).json({ message: "USER was successfully registered." });
+  } catch (err) {
+    console.error("Error executing query:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
 module.exports = {
+  loginUser,
+  registerUser,
   getAllEmployees,
   getUserByName,
   addEmployeeUser,
