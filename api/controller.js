@@ -40,21 +40,28 @@ const getUserByName = (req, res) => {
 };
 
 //add user
-const addEmployeeUser = (req, res) => {
+const addEmployeeUser = async (req, res) => {
   try {
     const q =
-      'INSERT INTO employee_info ("user_id", "first_name", "last_name", "email", "address", "phone_number") VALUES ($1, $2, $3, $4, $5, $6)';
+      'INSERT INTO employee_info ("user_id", "first_name", "last_name", "email", "address", "phone_number", "json_table") VALUES ($1, $2, $3, $4, $5, $6, $7)';
 
-    const { user_id, first_name, last_name, email, address, phone_number } =
-      req.body;
+    const {
+      user_id,
+      first_name,
+      last_name,
+      email,
+      address,
+      phone_number,
+      json_data,
+    } = req.body;
 
-    pool.query(
+   await pool.query(
       q,
-      [user_id, first_name, last_name, email, address, phone_number],
+      [user_id, first_name, last_name, email, address, phone_number, json_data],
       (err, data) => {
         if (err) {
           console.error("Error executing query:", err);
-          return res.sendStatus(500).json({ error: "Internal server error" });
+          return res.status(500).json({ error: "Internal server error" });
         }
         res.status(200).json({ message: "Employee user added successfully." });
       }

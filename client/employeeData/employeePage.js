@@ -64,12 +64,9 @@ $("#add").click(() => {
   const lastName = $("#last-name").val();
   const email = $("#email").val();
   const address = $("#address").val();
-  const phoneNumber = $("#phone"
-).val();
-  const jsonData = iti.getSelectedCountryData();
-
-  //   console.log(firstName)
-  console.log(jsonData);
+  const phoneNumber = `${iti.getSelectedCountryData().dialCode}${$(
+    "#phone"
+  ).val()}`;
 
   if (
     firstName === "" ||
@@ -91,7 +88,6 @@ $("#add").click(() => {
     email: stringCleanser(email),
     address: stringCleanser(address),
     phone_number: stringCleanser(phoneNumber),
-    json_data: JSON.stringify(jsonData),
   };
 
   $.ajax({
@@ -130,9 +126,7 @@ const updateUser = (userId) => {
         $("#upd-last-name").val(user.last_name);
         $("#upd-email").val(user.email);
         $("#upd-address").val(user.address);
-        $("#upd-phone-number").val(user.phone_number);
-
-        updateIti.setCountry(user.json_table.iso2);
+        $("#upd-phone-number").val("PH");
       });
     },
   });
@@ -255,7 +249,7 @@ const viewEmployee = (userId) => {
               <b>Address: </b><span>${user.address}</span>
           </div>
           <div class="d-flex gap-2">
-              <b>Phone Number: </b><span>+${user.json_table.dialCode} ${user.phone_number}</span>
+              <b>Phone Number: </b><span>+${user.phone_number}</span>
           </div
         </div>
        `);
@@ -326,6 +320,13 @@ const stringCleanser = (string) => {
 $("#viewAll").click(() => {
   location.reload();
   $("#viewAll").hide();
+});
+
+const username = $("#userUsername").value();
+const password = $("#userPassword").value();
+
+$("#loginForm").click(() => {
+  console.log("login form");
 });
 
 //random code langsss
