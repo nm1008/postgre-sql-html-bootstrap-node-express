@@ -134,17 +134,26 @@ const deleteUserById = (req, res) => {
 
 const loginUser = (req, res) => {
   const q = `SELECT * FROM user_accounts WHERE username = $1`;
-
   const { username, password } = req.body;
 
   pool.query(q, [username], (err, data) => {
     if (err) {
-      throw err;
+      return res.status(500).json({ error: "Internal Server Error" });
     }
-    res.status(200).json(data.rows[0].password);
+    if (data.rows.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
     const hashedPassword = data.rows[0].password;
     bcrypt.compare(password, hashedPassword, (err, result) => {
-      console.log(result);
+      if (err) {
+        return res.status(500).json({ error: "Internal Server Error" });
+      }
+      if (!result) {
+        return res.status(401).json({ error: "Invalid password" });
+      }
+      // Passwords match, user is authenticated
+      res.status(200).json({ message: "Login successful" });
     });
   });
 };
