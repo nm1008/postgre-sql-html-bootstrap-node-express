@@ -76,6 +76,28 @@
       <span id="spanUser"></span>
     </div>
 
+    <div class="container">
+      <div class="row my-3">
+        <div class="col-md-12 d-flex justify-content-center">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+              <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true"
+                  >Previous</a
+                >
+              </li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+
     <!-- ADD EMPLOYEE -->
     <div
       class="modal fade"
@@ -132,7 +154,13 @@
 
               <div class="mb-3 col-md-6 mx-auto intl-tel">
                 <label for="address" class="form-label">Phone Number</label>
-                <input type="tel" class="form-control" id="phone" />
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="phone"
+                  minlength="7"
+                  maxlength="15"
+                />
               </div>
             </form>
           </div>
@@ -197,17 +225,6 @@
                   required
                 ></select>
               </div>
-              <!-- <div class="mb-3 col-md-6 mx-auto">
-                <label for="upd-phone-number" class="form-label"
-                  >Phone Number</label
-                >
-                <input
-                  type="number"
-                  class="form-control"
-                  id="upd-phone-number"
-                />
-              </div> -->
-              <!-- TEST -->
               <div class="mb-3 col-md-6 mx-auto intl-tel">
                 <label for="address" class="form-label">Phone Number</label>
                 <input
@@ -215,8 +232,8 @@
                   class="form-control"
                   id="upd-phone-number"
                   placeholder="9771234567"
-                  minlength="10"
-                  maxlength="10"
+                  minlength="7"
+                  maxlength="15"
                 />
               </div>
             </form>

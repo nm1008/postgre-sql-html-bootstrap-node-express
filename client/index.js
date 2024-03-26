@@ -64,8 +64,7 @@ $("#add").click(() => {
   const lastName = $("#last-name").val();
   const email = $("#email").val();
   const address = $("#address").val();
-  const phoneNumber = $("#phone"
-).val();
+  const phoneNumber = $("#phone").val();
   const jsonData = iti.getSelectedCountryData();
 
   //   console.log(firstName)
@@ -106,7 +105,7 @@ $("#add").click(() => {
       if (res) {
         Swal.fire({
           title: "Good job!",
-          text: "User has been updated",
+          text: "User has been added",
           icon: "success",
         }).then(() => {
           location.reload();

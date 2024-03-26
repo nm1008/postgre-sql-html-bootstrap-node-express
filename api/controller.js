@@ -3,20 +3,36 @@ const bcrypt = require("bcrypt");
 const salt = 10;
 
 // get all users
-const getAllEmployees = (req, res) => {
+const getAllEmployees = async (req, res) => {
   try {
-    const q = "SELECT * FROM employee_info ORDER BY user_id";
-    pool.query(q, (err, data) => {
-      if (err) {
-        res.status(500).json({ message: err.message });
-        return;
-      }
-      // console.log(data);
-      res.status(200).json(data.rows);
-    });
+    const page = parseInt(req.query.page) || 1;
+    const pageSize = parseInt(req.query.pageSize) || 5;
+    const offset = (page - 1) * pageSize;
+
+    const queryResult = await pool.query(
+      "SELECT * FROM  employee_info LIMIT $1 OFFSET $2",
+      [pageSize, offset]
+    );
+
+    const users = queryResult.rows;
+    res.json(users);
+
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
+  // try {
+  //   const q = "SELECT * FROM employee_info ORDER BY user_id";
+  //   pool.query(q, (err, data) => {
+  //     if (err) {
+  //       res.status(500).json({ message: err.message });
+  //       return;
+  //     }
+  //     // console.log(data);
+  //     res.status(200).json(data.rows);
+  //   });
+  // } catch (err) {
+  //   res.status(500).json({ message: err.message });
+  // }
 };
 
 //get user by name
@@ -55,7 +71,7 @@ const addEmployeeUser = async (req, res) => {
       json_data,
     } = req.body;
 
-   await pool.query(
+    await pool.query(
       q,
       [user_id, first_name, last_name, email, address, phone_number, json_data],
       (err, data) => {
