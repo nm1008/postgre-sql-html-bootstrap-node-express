@@ -3,6 +3,8 @@ const baseURL = "http://localhost:3000/api/v1/users/";
 let userId;
 let editUserId;
 let viewAllBtn = false;
+let setLoading = true;
+
 const input = document.querySelector("#phone");
 var updateInput = document.querySelector("#upd-phone-number");
 
@@ -26,8 +28,9 @@ $.ajax({
   type: "GET",
   url: `${baseURL}getAll`,
   success: (res) => {
-    userId = res.length;
-    console.log(userId);
+    userId = Object.keys(res[res.length - 1]);
+
+    // console.log(userId);
     let numberOfPages = Math.ceil(res.length / 5);
     if (numberOfPages > 0) {
       for (let i = 1; i <= numberOfPages; i++) {
@@ -368,9 +371,9 @@ $("#search").click(() => {
       $("#viewAll").show();
 
       let numberOfPages = Math.ceil(res.length / 5);
-      $('#pagination').empty();
-      if(numberOfPages > 5){
-        for(let i = 1; i <= numberOfPages; i++){
+      $("#pagination").empty();
+      if (numberOfPages > 5) {
+        for (let i = 1; i <= numberOfPages; i++) {
           $("#pagination").append(
             `
               <li class="page-item">
@@ -378,12 +381,10 @@ $("#search").click(() => {
               </li>      
             `
           );
-        } 
+        }
       } else {
-        $('#removePagination').empty();
+        $("#removePagination").empty();
       }
-
-   
     },
   });
 });

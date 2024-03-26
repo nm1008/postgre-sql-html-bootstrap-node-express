@@ -52,7 +52,7 @@ const getUserByName = (req, res) => {
         return res.status(500).json({ error: "Internal server error" });
       }
       res.status(200).json(data.rows);
-      console.log(data);
+      // console.log(data);
     });
   } catch (err) {
     res.status(500).json({ message: err.message });
