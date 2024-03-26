@@ -366,6 +366,24 @@ $("#search").click(() => {
       $("#searchEmployeeModal").modal("hide");
 
       $("#viewAll").show();
+
+      let numberOfPages = Math.ceil(res.length / 5);
+      $('#pagination').empty();
+      if(numberOfPages > 5){
+        for(let i = 1; i <= numberOfPages; i++){
+          $("#pagination").append(
+            `
+              <li class="page-item">
+                <a type="button" class="page-link" onclick="handlePagination(${i}, 5)">${i}</a>
+              </li>      
+            `
+          );
+        } 
+      } else {
+        $('#removePagination').empty();
+      }
+
+   
     },
   });
 });

@@ -10,7 +10,7 @@ const getLimit5 = async (req, res) => {
     const offset = (page - 1) * pageSize;
 
     const queryResult = await pool.query(
-      "SELECT * FROM  employee_info LIMIT $1 OFFSET $2",
+      "SELECT * FROM  employee_info ORDER BY user_id LIMIT $1 OFFSET $2 ",
       [pageSize, offset]
     );
 
@@ -114,7 +114,7 @@ const updateUserById = (req, res) => {
   try {
     const id = parseInt(req.params.id);
     const q =
-      "UPDATE employee_info SET user_id = $1, first_name = $2, last_name = $3, email = $4, address = $5, phone_number = $6 WHERE user_id = $1";
+      "UPDATE employee_info SET user_id = $1, first_name = $2, last_name = $3, email = $4, address = $5, phone_number = $6 WHERE user_id = $1 RETURNING *";
 
     const { user_id, first_name, last_name, email, address, phone_number } =
       req.body;
@@ -127,9 +127,7 @@ const updateUserById = (req, res) => {
           console.error("Error executing query:", err);
           return res.sendStatus(500).json({ error: "Internal server error" });
         }
-        res
-          .status(200)
-          .json({ message: `Employee ${id} user updated successfully.` });
+        res.status(200).json({ message: `Employee ${id} user updated successfully.`, user: data.rows[0] });
       }
     );
   } catch (err) {
