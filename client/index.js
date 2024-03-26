@@ -6,6 +6,8 @@ let viewAllBtn = false;
 const input = document.querySelector("#phone");
 var updateInput = document.querySelector("#upd-phone-number");
 
+// let page =
+
 // INTL TEL INPUT
 var iti = window.intlTelInput(input, {
   separateDialCode: true,
@@ -24,16 +26,16 @@ $.ajax({
   type: "GET",
   url: `${baseURL}getAll`,
   success: (res) => {
-    userId = res.length
-    console.log(userId)
+    userId = res.length;
+    console.log(userId);
     let numberOfPages = Math.ceil(res.length / 5);
     if (numberOfPages > 0) {
       for (let i = 1; i <= numberOfPages; i++) {
         $("#pagination").append(
           `
             <li class="page-item">
-              <button class="page-link" onclick="handlePagination(${i}, 5)">${i}</button>
-            </li>            
+              <a type="button" class="page-link" onclick="handlePagination(${i}, 5)">${i}</a>
+            </li>      
           `
         );
       }
@@ -57,8 +59,6 @@ $.ajax({
     }
 
     res.forEach((user) => {
-      
-
       $("#table-body").append(`
         <tr>
           <td class="fw-bold">${user.user_id}</td>
@@ -71,7 +71,7 @@ $.ajax({
           </td>
         </tr>
       `);
-  
+
       $("#viewAll").hide();
     });
   },
@@ -104,8 +104,6 @@ const handlePagination = (page, pageSize) => {
 
         $("#viewAll").hide();
       });
-
-    
     },
   });
 };
@@ -135,7 +133,7 @@ $("#add").click(() => {
     return $("#addEmployeeModal").modal("hide");
   }
 
-  console.log(userId+ 1)
+  console.log(userId + 1);
 
   const user = {
     user_id: userId + 1,
