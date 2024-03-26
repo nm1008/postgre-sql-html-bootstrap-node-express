@@ -16,10 +16,10 @@ const getAllEmployees = async (req, res) => {
 
     const users = queryResult.rows;
     res.json(users);
-
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
+
   // try {
   //   const q = "SELECT * FROM employee_info ORDER BY user_id";
   //   pool.query(q, (err, data) => {
@@ -34,6 +34,8 @@ const getAllEmployees = async (req, res) => {
   //   res.status(500).json({ message: err.message });
   // }
 };
+
+// LINK = http://localhost:3000/api/v1/users/?page=3&pageSize=5
 
 //get user by name
 const getUserByName = (req, res) => {
