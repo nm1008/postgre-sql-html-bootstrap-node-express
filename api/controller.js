@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const salt = 10;
 
 // get all users
-const getAllEmployees = async (req, res) => {
+const getLimit5 = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
     const pageSize = parseInt(req.query.pageSize) || 5;
@@ -19,23 +19,25 @@ const getAllEmployees = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-
-  // try {
-  //   const q = "SELECT * FROM employee_info ORDER BY user_id";
-  //   pool.query(q, (err, data) => {
-  //     if (err) {
-  //       res.status(500).json({ message: err.message });
-  //       return;
-  //     }
-  //     // console.log(data);
-  //     res.status(200).json(data.rows);
-  //   });
-  // } catch (err) {
-  //   res.status(500).json({ message: err.message });
-  // }
 };
 
 // LINK = http://localhost:3000/api/v1/users/?page=3&pageSize=5
+
+const getAllEmployee = (req, res) => {
+  try {
+    const q = "SELECT * FROM employee_info ORDER BY user_id";
+    pool.query(q, (err, data) => {
+      if (err) {
+        res.status(500).json({ message: err.message });
+        return;
+      }
+      // console.log(data);
+      res.status(200).json(data.rows);
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
 
 //get user by name
 const getUserByName = (req, res) => {
@@ -58,7 +60,7 @@ const getUserByName = (req, res) => {
 };
 
 //add user
-const addEmployeeUser = async (req, res) => {
+const addEmployeeUser = (req, res) => {
   try {
     const q =
       'INSERT INTO employee_info ("user_id", "first_name", "last_name", "email", "address", "phone_number", "json_table") VALUES ($1, $2, $3, $4, $5, $6, $7)';
@@ -73,7 +75,7 @@ const addEmployeeUser = async (req, res) => {
       json_data,
     } = req.body;
 
-    await pool.query(
+    pool.query(
       q,
       [user_id, first_name, last_name, email, address, phone_number, json_data],
       (err, data) => {
@@ -202,9 +204,10 @@ const registerUser = async (req, res) => {
 };
 
 module.exports = {
+  getAllEmployee,
   loginUser,
   registerUser,
-  getAllEmployees,
+  getLimit5,
   getUserByName,
   addEmployeeUser,
   getUserById,

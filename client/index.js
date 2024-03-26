@@ -19,6 +19,28 @@ var updateIti = window.intlTelInput(updateInput, {
     "https://cdn.jsdelivr.net/npm/intl-tel-input@20.0.5/build/js/utils.js",
 });
 
+//get all employees
+$.ajax({
+  type: "GET",
+  url: `${baseURL}getAll`,
+  success: (res) => {
+    userId = res.length
+    console.log(userId)
+    let numberOfPages = Math.ceil(res.length / 5);
+    if (numberOfPages > 0) {
+      for (let i = 1; i <= numberOfPages; i++) {
+        $("#pagination").append(
+          `
+            <li class="page-item">
+              <button class="page-link" onclick="handlePagination(${i}, 5)">${i}</button>
+            </li>            
+          `
+        );
+      }
+    }
+  },
+});
+
 //RENDER PAGE
 $.ajax({
   type: "GET",
@@ -35,7 +57,7 @@ $.ajax({
     }
 
     res.forEach((user) => {
-      userId = user.user_id;
+      
 
       $("#table-body").append(`
         <tr>
@@ -49,7 +71,7 @@ $.ajax({
           </td>
         </tr>
       `);
-      userId++;
+  
       $("#viewAll").hide();
     });
   },
@@ -57,6 +79,38 @@ $.ajax({
     console.error("Error fetching user data:", error);
   },
 });
+
+const handlePagination = (page, pageSize) => {
+  $("#table-body").empty();
+  $.ajax({
+    type: "GET",
+    url: `${baseURL}?page=${page}?pageSize=${pageSize}`,
+    success: (res) => {
+      res.forEach((user) => {
+        userId = user.user_id;
+
+        $("#table-body").append(`
+          <tr>
+            <td class="fw-bold">${user.user_id}</td>
+            <td>${user.first_name}</td>
+            <td>${user.last_name}</td> 
+            <td>
+              <button type="button" class='btn btn-success text-white mx-2 fw-bold' data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" onclick="viewEmployee(${user.user_id})">View</button>
+              <button type="button" class='btn btn-warning text-white mx-2 fw-bold' data-bs-toggle="modal" data-bs-target="#editUserModal" onclick="updateUser(${user.user_id})">Edit</button>
+              <button class='btn btn-danger text-white fw-bold' onclick="deleteUser(${user.user_id})">Delete</button>
+            </td>
+          </tr>
+        `);
+
+        $("#viewAll").hide();
+      });
+
+    
+    },
+  });
+};
+
+//PAGINATION
 
 //ADD USER
 $("#add").click(() => {
@@ -81,8 +135,10 @@ $("#add").click(() => {
     return $("#addEmployeeModal").modal("hide");
   }
 
+  console.log(userId+ 1)
+
   const user = {
-    user_id: userId,
+    user_id: userId + 1,
     first_name:
       stringCleanser(firstName).charAt(0).toUpperCase() + firstName.slice(1),
     last_name:
